@@ -127,6 +127,79 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .form-card, .list-panel { box-shadow: 0 12px 32px #0003; }
 }
 
+/* Keep the category and sort controls on the same visual baseline. */
+.list-selectors {
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 0;
+}
+.category-filter, .sort-control {
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #171b1d;
+  white-space: nowrap;
+}
+.category-filter select, .sort-control select {
+  height: 100%;
+  padding-right: 16px;
+  font-size: 11px;
+}
+.category-filter::after { right: 9px; }
+.sort-control { padding-bottom: 0; }
+.sort-control svg { right: 8px; }
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 10px 0;
+  padding: 12px 2px 2px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: 11px;
+}
+.page-size-control, .pagination-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.page-size-control select {
+  height: 30px;
+  min-width: 54px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #171b1d;
+  color: var(--text);
+}
+.page-status { min-width: 155px; text-align: center; }
+.page-button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #202427;
+  color: var(--text);
+  font-size: 10px;
+  cursor: pointer;
+}
+.page-button:hover:not(:disabled) { border-color: #765b2c; }
+.page-button:disabled { opacity: .45; cursor: default; }
+@media (max-width: 700px) {
+  .list-selectors { gap: 6px; }
+  .category-filter, .sort-control { height: 32px; padding-right: 8px; padding-left: 8px; }
+  .category-filter select, .sort-control select { max-width: 88px; font-size: 10px; }
+  .sort-control svg { right: 6px; }
+  .pagination { margin-right: 4px; margin-left: 4px; font-size: 10px; }
+  .page-status { min-width: 0; }
+}
+@media (max-width: 390px) {
+  .pagination { align-items: flex-start; flex-direction: column; }
+  .pagination-nav { width: 100%; justify-content: space-between; }
+}
+
 /* Give the main list room to lead the page. */
 .workspace { margin-top: 26px; }
 .list-panel { padding: 28px 30px 22px; }
@@ -144,6 +217,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   border-radius: 12px;
   background: #202427;
 }
+.item-row:first-child { margin-top: 8px; }
 .item-row:hover { border-color: #765b2c; background: #262a2d; }
 .item-title { font-size: 15px; line-height: 1.4; }
 .item-meta { font-size: 12px; }

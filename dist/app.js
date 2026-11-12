@@ -17,6 +17,7 @@
   let selectedPriority = 1;
   let selectedEditPriority = 1;
   let activeFilter = "active";
+  let currentPage = 1;
   let toastTimer;
   let items = readItems();
   let categories = readCategories();
@@ -104,7 +105,11 @@
       if (sort === "price-high") return (Number(b.price) || 0) - (Number(a.price) || 0);
       return Number(b.priority || 1) - Number(a.priority || 1) || new Date(b.createdAt) - new Date(a.createdAt);
     });
-    list.innerHTML = visible.map((item) => {
+    const pageSize = Number($("#page-size").value) || 5;
+    const pageCount = Math.max(1, Math.ceil(visible.length / pageSize));
+    currentPage = Math.min(currentPage, pageCount);
+    const pageItems = visible.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    list.innerHTML = pageItems.map((item) => {
       const url = safeUrl(item.url);
       const priority = Math.min(5, Math.max(1, Number(item.priority) || 1));
       const price = formatPrice(item.price);
@@ -130,6 +135,13 @@
       : activeFilter === "bought"
       ? "Nenhuma compra concluída ainda. Quando você marcar um item como comprado, ele aparece aqui."
       : "Tudo comprado por enquanto! Adicione outro item quando encontrar algo que queira. ";
+    const pagination = $("#pagination");
+    pagination.hidden = visible.length <= pageSize;
+    $("#page-prev").disabled = currentPage === 1;
+    $("#page-next").disabled = currentPage === pageCount;
+    const firstItem = visible.length ? (currentPage - 1) * pageSize + 1 : 0;
+    const lastItem = Math.min(currentPage * pageSize, visible.length);
+    $("#page-status").textContent = `${firstItem}–${lastItem} de ${visible.length} · página ${currentPage} de ${pageCount}`;
   }
   function setPriority(root, value, edit = false) {
     const safe = Math.min(5, Math.max(1, Number(value) || 1));
@@ -230,13 +242,17 @@
   dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
   $$(".filter-tab").forEach((button) => button.addEventListener("click", () => {
     activeFilter = button.dataset.filter;
+    currentPage = 1;
     $$(".filter-tab").forEach((tab) => { const active = tab === button; tab.classList.toggle("active", active); tab.setAttribute("aria-selected", String(active)); });
     render();
   }));
-  $("#search").addEventListener("input", render);
-  $("#category-filter").addEventListener("change", render);
-  $("#sort").addEventListener("change", render);
-  $("#clear-search").addEventListener("click", () => { $("#search").value = ""; render(); $("#search").focus(); });
+  $("#search").addEventListener("input", () => { currentPage = 1; render(); });
+  $("#category-filter").addEventListener("change", () => { currentPage = 1; render(); });
+  $("#sort").addEventListener("change", () => { currentPage = 1; render(); });
+  $("#page-size").addEventListener("change", () => { currentPage = 1; render(); });
+  $("#page-prev").addEventListener("click", () => { if (currentPage > 1) { currentPage--; render(); } });
+  $("#page-next").addEventListener("click", () => { currentPage++; render(); });
+  $("#clear-search").addEventListener("click", () => { $("#search").value = ""; currentPage = 1; render(); $("#search").focus(); });
   $("#empty-add").addEventListener("click", () => nameInput.focus());
   renderCategories();
   render();
