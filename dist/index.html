@@ -54,6 +54,8 @@
               <div class="input-with-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 13.5a4.25 4.25 0 0 0 6.01 0l3-3a4.25 4.25 0 0 0-6.01-6.01l-1.72 1.72M14 10.5a4.25 4.25 0 0 0-6.01 0l-3 3A4.25 4.25 0 0 0 9.99 19.5l1.72-1.72" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="item-link" name="url" type="url" placeholder="https://loja.com/produto" autocomplete="url" /></div>
               <label for="item-price">Preço que você encontrou <span class="optional">opcional</span></label>
               <div class="price-input"><span>R$</span><input id="item-price" name="price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" /></div>
+              <div class="category-label-row"><label for="item-category">Categoria <span class="optional">opcional</span></label><button class="text-button" type="button" id="manage-categories">+ Criar categoria</button></div>
+              <select id="item-category" class="category-select"><option value="">Sem categoria</option></select>
               <fieldset class="priority-field">
                 <legend>Prioridade de compra</legend>
                 <div class="priority-picker" role="radiogroup" aria-label="Prioridade de compra">
@@ -81,7 +83,7 @@
                 <button class="filter-tab active" type="button" data-filter="active" role="tab" aria-selected="true">Quero comprar <span id="active-count">0</span></button>
                 <button class="filter-tab" type="button" data-filter="bought" role="tab" aria-selected="false">Já comprei <span id="bought-count">0</span></button>
               </div>
-              <label class="sort-control"><span>Ordenar:</span><select id="sort"><option value="priority">Prioridade</option><option value="newest">Mais recentes</option><option value="price-low">Menor preço</option><option value="price-high">Maior preço</option></select><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></label>
+              <div class="list-selectors"><label class="category-filter"><span>Categoria:</span><select id="category-filter"><option value="">Todas</option></select></label><label class="sort-control"><span>Ordenar:</span><select id="sort"><option value="priority">Prioridade</option><option value="newest">Mais recentes</option><option value="price-low">Menor preço</option><option value="price-high">Maior preço</option></select><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></label></div>
             </div>
             <div id="items-list" class="items-list" aria-live="polite"></div>
             <div id="empty-state" class="empty-state">
@@ -104,11 +106,20 @@
         <label for="edit-name">Nome do produto</label><input id="edit-name" type="text" maxlength="100" required />
         <label for="edit-link">Link do produto <span class="optional">opcional</span></label><input id="edit-link" type="url" placeholder="https://loja.com/produto" />
         <label for="edit-price">Preço encontrado <span class="optional">opcional</span></label><div class="price-input"><span>R$</span><input id="edit-price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" /></div>
+        <label for="edit-category">Categoria <span class="optional">opcional</span></label><select id="edit-category" class="category-select"><option value="">Sem categoria</option></select>
         <fieldset class="priority-field"><legend>Prioridade de compra</legend><div class="priority-picker" id="edit-priority" role="radiogroup" aria-label="Prioridade de compra">
           <button type="button" class="priority-option" data-priority="1" aria-pressed="false" aria-label="Prioridade 1 de 5">1</button><button type="button" class="priority-option" data-priority="2" aria-pressed="false" aria-label="Prioridade 2 de 5">2</button><button type="button" class="priority-option" data-priority="3" aria-pressed="false" aria-label="Prioridade 3 de 5">3</button><button type="button" class="priority-option" data-priority="4" aria-pressed="false" aria-label="Prioridade 4 de 5">4</button><button type="button" class="priority-option" data-priority="5" aria-pressed="false" aria-label="Prioridade 5 de 5">5</button><span class="priority-hint" id="edit-priority-hint">Pode esperar</span>
         </div></fieldset>
         <div class="dialog-actions"><button type="button" class="secondary-button close-dialog">Cancelar</button><button type="submit" class="add-button">Salvar alterações <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       </form>
+    </dialog>
+    <dialog id="category-dialog" class="edit-dialog category-dialog">
+      <form id="category-form" method="dialog">
+        <div class="dialog-header"><div><p class="eyebrow">ORGANIZE SUA LISTA</p><h2>Criar categoria</h2></div><button class="icon-button close-category-dialog" type="button" aria-label="Fechar">×</button></div>
+        <label for="new-category">Nome da categoria</label><input id="new-category" type="text" maxlength="40" placeholder="Ex.: Casa, Tecnologia, Presentes" autocomplete="off" />
+        <div class="dialog-actions"><button type="button" class="secondary-button close-category-dialog">Concluir</button><button type="submit" class="add-button">Criar categoria <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+      </form>
+      <div class="category-manager"><h3>Suas categorias</h3><div id="category-list"></div></div>
     </dialog>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="app.js"></script>
