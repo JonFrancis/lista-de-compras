@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#101210" />
+    <meta name="description" content="Guarde seus produtos, links, preços e prioridades em um só lugar." />
+    <title>Minha lista — Lista de compras</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="Lista de compras, início">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5.5 8.5h13l1 12h-15l1-12Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9V6.5a3 3 0 0 1 6 0V9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="m9.5 14 1.7 1.7 3.4-3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>minha<span class="brand-accent">lista</span></span>
+        </a>
+        <div class="topbar-note"><span class="privacy-dot"></span> Seus itens ficam salvos neste navegador</div>
+      </header>
+
+      <main id="inicio">
+        <section class="intro">
+          <div class="intro-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> COMPRAS COM CALMA</p>
+            <h1>O que você quer<br /><span>comprar depois?</span></h1>
+            <p class="intro-subtitle">Guarde o link, anote o preço e acompanhe suas prioridades. Sem pressa, sem perder nada.</p>
+          </div>
+          <div class="summary-card" aria-label="Resumo da lista">
+            <div class="summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 4.75h10a2 2 0 0 1 2 2v12.5H5V6.75a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 4.75V3.5h7v1.25M8.5 9h7M8.5 12.5h7M8.5 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div><span class="summary-label">NA SUA LISTA</span><div class="summary-number"><span id="summary-count">0</span><span class="summary-word">itens</span></div></div>
+            <div class="summary-divider"></div>
+            <div class="summary-total"><span class="summary-label">VALOR ANOTADO</span><strong id="summary-total">R$ 0,00</strong></div>
+          </div>
+        </section>
+
+        <section class="workspace" aria-label="Sua lista de compras">
+          <aside class="form-card">
+            <div class="form-heading">
+              <span class="form-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <div><h2>Adicionar à lista</h2><p>Uma ideia de cada vez.</p></div>
+            </div>
+            <form id="item-form" novalidate>
+              <label for="item-name">O que você quer comprar?</label>
+              <input id="item-name" name="name" type="text" maxlength="100" placeholder="Ex.: Fone bluetooth" autocomplete="off" required />
+              <label for="item-link">Link do produto <span class="optional">opcional</span></label>
+              <div class="input-with-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 13.5a4.25 4.25 0 0 0 6.01 0l3-3a4.25 4.25 0 0 0-6.01-6.01l-1.72 1.72M14 10.5a4.25 4.25 0 0 0-6.01 0l-3 3A4.25 4.25 0 0 0 9.99 19.5l1.72-1.72" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="item-link" name="url" type="url" placeholder="https://loja.com/produto" autocomplete="url" /></div>
+              <label for="item-price">Preço que você encontrou <span class="optional">opcional</span></label>
+              <div class="price-input"><span>R$</span><input id="item-price" name="price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" /></div>
+              <fieldset class="priority-field">
+                <legend>Prioridade de compra</legend>
+                <div class="priority-picker" role="radiogroup" aria-label="Prioridade de compra">
+                  <button type="button" class="priority-option selected" data-priority="1" aria-pressed="true" aria-label="Prioridade 1 de 5">1</button>
+                  <button type="button" class="priority-option" data-priority="2" aria-pressed="false" aria-label="Prioridade 2 de 5">2</button>
+                  <button type="button" class="priority-option" data-priority="3" aria-pressed="false" aria-label="Prioridade 3 de 5">3</button>
+                  <button type="button" class="priority-option" data-priority="4" aria-pressed="false" aria-label="Prioridade 4 de 5">4</button>
+                  <button type="button" class="priority-option" data-priority="5" aria-pressed="false" aria-label="Prioridade 5 de 5">5</button>
+                  <span class="priority-hint" id="priority-hint">Pode esperar</span>
+                </div>
+              </fieldset>
+              <button class="add-button" type="submit"><span>Adicionar item</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <p class="form-message" id="form-message" aria-live="polite"></p>
+            </form>
+            <div class="form-footnote"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.9 7.9 7 10 4.1-2.1 7-5.5 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m9.5 12 1.7 1.7 3.6-3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Seus dados ficam só com você.</div>
+          </aside>
+
+          <section class="list-panel" aria-labelledby="list-heading">
+            <div class="list-topline">
+              <div><p class="eyebrow list-eyebrow">SUAS ESCOLHAS</p><h2 id="list-heading">Minha lista <span id="heading-count" class="heading-count">0</span></h2></div>
+              <label class="search-box" aria-label="Buscar na lista"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.7"/><path d="m15.5 15.5 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="search" type="search" placeholder="Buscar item..." /></label>
+            </div>
+            <div class="list-controls">
+              <div class="filter-tabs" role="tablist" aria-label="Filtrar itens">
+                <button class="filter-tab active" type="button" data-filter="active" role="tab" aria-selected="true">Quero comprar <span id="active-count">0</span></button>
+                <button class="filter-tab" type="button" data-filter="bought" role="tab" aria-selected="false">Já comprei <span id="bought-count">0</span></button>
+              </div>
+              <label class="sort-control"><span>Ordenar:</span><select id="sort"><option value="priority">Prioridade</option><option value="newest">Mais recentes</option><option value="price-low">Menor preço</option><option value="price-high">Maior preço</option></select><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></label>
+            </div>
+            <div id="items-list" class="items-list" aria-live="polite"></div>
+            <div id="empty-state" class="empty-state">
+              <div class="empty-art" aria-hidden="true"><div class="empty-spark spark-one">✳</div><div class="empty-spark spark-two">✦</div><div class="empty-bag"><svg viewBox="0 0 72 72" fill="none"><path d="M17 25h38l3 36H14l3-36Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M27 27V18a9 9 0 0 1 18 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="m29 43 5 5 10-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+              <h3>A lista começa com uma ideia</h3><p>Adicione um produto que está de olho e deixe o link e o preço guardados para depois.</p><button type="button" class="empty-cta" id="empty-add">Adicionar meu primeiro item <span>↗</span></button>
+            </div>
+            <div id="search-empty" class="search-empty" hidden><span>Não encontramos esse item.</span><button type="button" id="clear-search">Limpar busca</button></div>
+            <div id="filter-empty" class="filter-empty" hidden></div>
+            <div class="list-footer"><span><span class="footer-dot"></span> Atualize o preço quando encontrar uma oferta</span><span>Salvo automaticamente</span></div>
+          </section>
+        </section>
+      </main>
+      <footer class="page-footer"><span>Compre no seu tempo.</span><span>Feito para organizar, sem complicar <span class="footer-heart">♥</span></span></footer>
+    </div>
+
+    <dialog id="edit-dialog" class="edit-dialog">
+      <form id="edit-form" method="dialog">
+        <div class="dialog-header"><div><p class="eyebrow">AJUSTE SUA LISTA</p><h2>Editar item</h2></div><button class="icon-button close-dialog" type="button" aria-label="Fechar">×</button></div>
+        <input type="hidden" id="edit-id" />
+        <label for="edit-name">Nome do produto</label><input id="edit-name" type="text" maxlength="100" required />
+        <label for="edit-link">Link do produto <span class="optional">opcional</span></label><input id="edit-link" type="url" placeholder="https://loja.com/produto" />
+        <label for="edit-price">Preço encontrado <span class="optional">opcional</span></label><div class="price-input"><span>R$</span><input id="edit-price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" /></div>
+        <fieldset class="priority-field"><legend>Prioridade de compra</legend><div class="priority-picker" id="edit-priority" role="radiogroup" aria-label="Prioridade de compra">
+          <button type="button" class="priority-option" data-priority="1" aria-pressed="false" aria-label="Prioridade 1 de 5">1</button><button type="button" class="priority-option" data-priority="2" aria-pressed="false" aria-label="Prioridade 2 de 5">2</button><button type="button" class="priority-option" data-priority="3" aria-pressed="false" aria-label="Prioridade 3 de 5">3</button><button type="button" class="priority-option" data-priority="4" aria-pressed="false" aria-label="Prioridade 4 de 5">4</button><button type="button" class="priority-option" data-priority="5" aria-pressed="false" aria-label="Prioridade 5 de 5">5</button><span class="priority-hint" id="edit-priority-hint">Pode esperar</span>
+        </div></fieldset>
+        <div class="dialog-actions"><button type="button" class="secondary-button close-dialog">Cancelar</button><button type="submit" class="add-button">Salvar alterações <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
