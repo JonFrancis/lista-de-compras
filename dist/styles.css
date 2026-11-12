@@ -126,3 +126,45 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .summary-card { box-shadow: 0 10px 28px #0003; }
   .form-card, .list-panel { box-shadow: 0 12px 32px #0003; }
 }
+
+/* Give the main list room to lead the page. */
+.workspace { margin-top: 26px; }
+.list-panel { padding: 28px 30px 22px; }
+#list-heading { font-size: 24px; letter-spacing: -.8px; }
+.list-eyebrow { font-size: 11px; }
+.search-box { width: 225px; height: 42px; }
+.search-box input { font-size: 13px; }
+.filter-tab { font-size: 13px; }
+.category-filter, .sort-control { font-size: 12px; }
+.category-filter select, .sort-control select { font-size: 12px; }
+.item-row {
+  margin: 0 10px 8px;
+  padding: 18px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  background: #202427;
+}
+.item-row:hover { border-color: #765b2c; background: #262a2d; }
+.item-title { font-size: 15px; line-height: 1.4; }
+.item-meta { font-size: 12px; }
+.item-priority { font-size: 11px; }
+.item-date { font-size: 10px; }
+.item-price { font-size: 14px; }
+.priority-dots i { width: 6px; height: 6px; }
+
+@media (max-width: 900px) {
+  .list-panel { padding: 25px 24px 20px; }
+  .search-box { width: 200px; }
+}
+@media (max-width: 700px) {
+  .list-panel { padding: 22px 20px 18px; }
+  .search-box { width: 100%; }
+  .item-row { margin-right: 7px; margin-left: 7px; padding: 16px 12px; }
+  .item-title { font-size: 15px; }
+  .item-meta { font-size: 11px; }
+  .item-priority { font-size: 10px; }
+}
+@media (max-width: 390px) {
+  .list-panel { padding-right: 16px; padding-left: 16px; }
+  .item-row { margin-right: 4px; margin-left: 4px; padding: 15px 10px; }
+}
